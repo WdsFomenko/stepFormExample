@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>The order form of ice cream</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+    <h1>Форма оформления заказа мороженного</h1>
+    <div class="containerForm" ng-controller="mainCtrl">
+        <header class="headerForm">
+            <ul>
+                <li>
+                    <div><span>Описание</span></div>
+                </li>
+                <li>
+                    <div><span>Ингридиенты</span></div>
+                </li>
+                <li>
+                    <div><span>Серверовка</span></div>
+                </li>
+            </ul>
+        </header>
+        <section class="bodyForm">
+            <h3 id="titleForm"><img src=""/></h3>
+            <div class="switchContent" ng-switch="mainNs.stepPosition" ng-cloak>
+                <div class="contentBodyForm" ng-switch-when="1" ng-cloak="mainNs.stepPosition">
+                    <div class="bodyFormImg">
+                        <img ng-src="{{mainNs.dataIce.iceImg}}" height="130" width="90"/>
+                    </div>
+                    <div class="bodyFormName">
+                        <div id="inputMessage">
+                            <span>Начните с выбора названия</span>
+                            <svg width="10" height="10">
+                              <polygon points="0,0 10,0 5,10" style="fill:#4f89ce;stroke:#4f89ce;" />
+                            </svg>
+                        </div>
+                        <input type="text" name="iceName" id="iceName" list="dataToIceName" placeholder="Название мороженного" ng-model="mainNs.selectiveName"/>
+                        <datalist id="dataToIceName" show-list-ice-name-directive></datalist>
+                        <input type="text" disabled name="iceAltName" id="iceAltName" placeholder="Альтернативное название" ng-model="mainNs.dataIce.iceAltName"/>
+                        <textarea disabled name="iceSmDescription" id="iceSmDescription" placeholder="Краткое описание" ng-model="mainNs.dataIce.iceSmDescription"></textarea>
+                    </div>
+                    <div class="bodyFormDescription">
+                        <textarea disabled name="iceLgDescription" id="iceLgDescription" placeholder="Инструкция по приготовлению" ng-model="mainNs.dataIce.iceLgDescription"></textarea>
+                    </div>
+                </div>
+                <div class="contentBodyForm"  ng-switch-when="2">
+                    <div class="itemMenu" ng-repeat="items in mainNs.dataIce.itemMenu">
+                        <input type="text" class="itemMenuName" value="{{items.itemMenuName}}" disabled/>
+                        <input type="text" class="itemMenuNumber" value="{{items.itemMenuNumber}}"/>
+                        <input type="text" class="itemMenuNumberOf" value="{{items.itemMenuNumberOf}}" disabled/>
+                    </div>
+                </div>
+                <div class="contentBodyForm"  ng-switch-when="3">
+                    <div class="taraBlock">
+                        <img src="content/img/tara1.jpg" ng-class="setActiveClass(0)"/>
+                        <div class="taraBlockLink" ng-click="selectTara(0)"><span>Выбрать</span></div>
+                    </div>
+                    <div class="taraBlock">
+                        <img src="content/img/tara2.jpg" ng-class="setActiveClass(1)"/>
+                        <div class="taraBlockLink" ng-click="selectTara(1)"><span>Выбрать</span></div>
+                    </div>
+                    <div class="taraBlock">
+                        <div id="selectMessage"><span>Рекомендуемый выбор</span><svg width="10" height="10"><polygon points="0,0 10,0 5,10" style="fill:#4f89ce;stroke:#4f89ce;" /></svg></div>
+                        <img src="content/img/tara3.jpeg" ng-class="setActiveClass(2)"/>
+                        <div class="taraBlockLink" ng-click="selectTara(2)"><span>Выбрать</span></div>
+                    </div>
+                    <div class="taraBlock">
+                        <img src="content/img/tara4.jpg" ng-class="setActiveClass(3)"/>
+                        <div class="taraBlockLink" ng-click="selectTara(3)"><span>Выбрать</span></div>
+                    </div>
+                    <div class="taraBlock">
+                        <img src="content/img/tara5.jpg" ng-class="setActiveClass(4)"/>
+                        <div class="taraBlockLink" ng-click="selectTara(4)"><span>Выбрать</span></div>
+                    </div>
+                    <div class="taraBlock">
+                        <img src="content/img/tara6.jpg" ng-class="setActiveClass(5)"/>
+                        <div class="taraBlockLink" ng-click="selectTara(5)"><span>Выбрать</span></div>
+                    </div>
+                </div>
+                <div class="contentBodyForm"  ng-switch-when="4">
+                    <p class="orderInfo">Мороженное <span>"{{mainNs.selectIce}}"</span> будет проиготовлено в кратчайший срок по выбранному рецепту</p>
+                </div>
+            </div>
+        </section>
+        <nav class="navForm">
+            <div id="prevNav" ng-click="mainNs.decrementPosition()"></div>
+            <div id="nextNav" ng-click="mainNs.incrementPosition()"></div>
+        </nav>
+    </div>
+</body>
+</html>
